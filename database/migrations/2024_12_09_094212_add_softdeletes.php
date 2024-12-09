@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::table('courses', function (Blueprint $table) {
             $table->softDeletes();
         });
-        Schema::table('other_job', function (Blueprint $table) {
+        Schema::table('other_jobs', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
