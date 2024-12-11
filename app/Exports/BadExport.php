@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Exports;
 
 use App\Models\Lecturers;
@@ -23,9 +24,12 @@ class BadExport implements FromView, WithStyles, WithColumnWidths
      */
     public function view(): View
     {
-        $lecturers = Lecturers::all();
+        $lecturers = Lecturers::whereHas('bads', function ($query) {
+            $query->where('semester_id', $this->semester->id);
+        })->withTrashed()->get();
+        // dd($lecturers);
         $semester = $this->semester;
-        return view('export.bad2', compact('lecturers','semester'));
+        return view('export.bad2', compact('lecturers', 'semester'));
     }
 
 
@@ -111,7 +115,8 @@ class BadExport implements FromView, WithStyles, WithColumnWidths
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_DOUBLE,
                 ],
-            ],   'alignment' => [
+            ],
+            'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'vertical' => Alignment::VERTICAL_CENTER,
             ]
@@ -139,5 +144,4 @@ class BadExport implements FromView, WithStyles, WithColumnWidths
 
         ];
     }
-
 }

@@ -18,11 +18,12 @@ class Lecturers extends Model
     public function bads(): HasMany
     {
 
-        return $this->hasMany(Bad::class);
+        return $this->hasMany(Bad::class,'lecturer_id');
     }
 
     public function otherjob(): BelongsTo
     {
         return $this->belongsTo(OtherJob::class)->withTrashed();
     }
+
 }
