@@ -17,7 +17,7 @@ class CourseAdd extends Component
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'code' => 'required|string|unique:courses|max:50',
+        'code' => 'required|string|max:50|unique:courses',
         'semester' => 'nullable|integer|min:0|max:8',
         'sks' => 'required|integer|min:1|max:24',
         'class' => 'required|string|max:50',

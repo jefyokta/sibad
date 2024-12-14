@@ -17,7 +17,7 @@ class SemesterChecker
     public function handle(Request $request, Closure $next): Response
     {
         if (!Semester::isCurrentExist()) {
-           Semester::createNewSemester();
+           Semester::createSemestersForYear();
         }
         return $next($request);
     }

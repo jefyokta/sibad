@@ -14,38 +14,37 @@ class Semester extends Model
         $today = now()->format('Y-m-d');
         $s = self::where('begin', '<=', $today)
             ->where('end', '>=', $today);
-        // ->where('approved', true);
-        // dd($s);
         return $s;
     }
 
-    public static function createNewSemester(): void
+    public static function createSemestersForYear(): void
     {
         $now = now();
-        $isOdd = $now->month < 2 || $now->month > 7;
-        if ($isOdd) {
-            $begin = $now->month >= 8
-                ? $now->year . '-08-01'
-                : $now->subYear()->year . '-08-01';
+        $year = $now->year;
 
-            $end = $now->month >= 8
-                ? $now->addYear()->year . '-01-31'
-                : $now->year . '-01-31';
-        } else {
-            $begin = $now->year . '-02-01';
-            $end = $now->year . '-07-31';
+        $oddSemesterBegin = "$year-08-01";
+        $oddSemesterEnd = ($year + 1) . "-01-31";
+
+        $evenSemesterBegin = ($year + 1)."-02-01";
+        $evenSemesterEnd = ($year + 1)."-07-31";
+
+        if (!self::where('begin', $oddSemesterBegin)->where('end', $oddSemesterEnd)->exists()) {
+            self::create([
+                'begin' => $oddSemesterBegin,
+                'end' => $oddSemesterEnd,
+                'is_odd' => true,
+            ]);
         }
 
-        if (self::where('begin', $begin)->where('end', $end)->exists()) {
-            throw new Exception('Semester already exists!');
+        if (!self::where('begin', $evenSemesterBegin)->where('end', $evenSemesterEnd)->exists()) {
+            self::create([
+                'begin' => $evenSemesterBegin,
+                'end' => $evenSemesterEnd,
+                'is_odd' => false,
+            ]);
         }
-
-        self::create([
-            'begin' => $begin,
-            'end' => $end,
-            'is_odd' => $isOdd,
-        ]);
     }
+
 
     public static function current()
     {
@@ -54,7 +53,6 @@ class Semester extends Model
 
     public static function isCurrentExist(): bool
     {
-        // dd(self::queryForCurrent()->exists());
         return self::queryForCurrent()->exists();
     }
 

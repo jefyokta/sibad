@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $page = 5;
+
+
 
         return view("pages.course", compact("page"));
     }
@@ -41,7 +43,7 @@ class CourseController extends Controller
         }
 
         $courses = $course->paginate(20);
-        return view("pages.course.courses", compact('courses', "page","semester"));
+        return view("pages.course.courses", compact('courses', "page", "semester"));
     }
 
     public function store(Request $request) {}

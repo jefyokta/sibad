@@ -28,12 +28,10 @@ class CourseUpdate extends Component
 
     public function save()
     {
-
-
         $v = (object) $this->validate([
             "course_id" => "required",
             'course_name' => 'required|string|max:255',
-            'course_code' => 'required|string|max:50|unique:courses,course_code,' . $this->course_id,
+            'course_code' => 'required|string|max:50|unique:courses,code,' . $this->course_id,
             'semester' => 'nullable|integer|min:0|max:8',
             'sks' => 'required|integer|min:1|max:24',
             'class' => 'required|string|max:50',
@@ -52,7 +50,6 @@ class CourseUpdate extends Component
 
             return redirect('/courses')->with('success', "Berhasil ubah data matakuliah");
         } catch (\Throwable $th) {
-            // dd($th);
             return redirect('/courses')->with('error', "Gagal ubah data matakuliah");
         }
     }

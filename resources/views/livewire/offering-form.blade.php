@@ -5,9 +5,10 @@
                 <h1>
                     Penawaran Mata Kuliah
                 </h1>
+              
                 <p class="text-gray-400 text-xs">Semester
-                    {{ App\Models\Semester::current()->is_odd ? 'Ganjil' : 'Genap' }}
-                    {{ Date::parse(App\Models\Semester::current()->begin)->year }}/{{ Date::parse(App\Models\Semester::current()->end)->year }}
+                    {{ $c->is_odd ? 'Ganjil' : 'Genap' }}
+                    {{ $c->is_odd ? Date::parse($c->begin)->year : Date::parse($c->begin)->subYear()->year }}/{{ Date::parse($c->end)->year }}
                 </p>
 
             </div>

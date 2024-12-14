@@ -13,28 +13,30 @@ class OfferingForm extends Component
 {
     public $course = '';
     public $lecturerid = '';
+    public $c = null;
 
 
 
     public function mount()
     {
+        $this->c =   Semester::find(request()->query('s', Semester::current()->id));
 
-        $c = request()->query('c') ?? false;
-        if ($c) {
-            $course =  Course::where('id', $c);
-            $taken = $this->getCurrentCourse($course)->count() == 0;
+        $co = request()->query('c') ?? false;
+        if ($co) {
+            $course =  Course::where('id', $co);
+            $taken = $this->getCurrentCourse($course, $this->c)->count() == 0;
             // dd($taken);
             if (!$taken) {
-                $this->course = $c;
+                $this->course = $co;
             } else {
                 return redirect("/course-offering")->with('error', "matakuliah sudah diambil atau berada di jenis semester berbeda!");
             }
         }
     }
 
-    private function getCurrentCourse(Builder $c = null)
+    private function getCurrentCourse(Builder $c = null, ?Semester $semester = null)
     {
-        $smt = Semester::current();
+        $smt = $semester ?? Semester::current();
         $odd = $smt->is_odd ?? false;
         $courses = $c ?? Course::select("*");
 

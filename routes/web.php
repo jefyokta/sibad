@@ -14,7 +14,7 @@ use App\Http\Middleware\HeadOfStudyProgram;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\OtherJobController;
 use App\Http\Controllers\SemesterController;
-use App\Models\User;
+
 
 Route::middleware("auth")->group(function () {
     Route::get("/dashboard", function () {
@@ -42,7 +42,7 @@ Route::middleware("auth")->group(function () {
         })->count();
         $courseLeft = $courseLeft->get();
         $page = 1;
-        return view("pages.dashboard", compact("lecturers", "courses", "page", "courseLeft", "courseLeftCount","currentSemesterCourseCount"));
+        return view("pages.dashboard", compact("lecturers", "courses", "page", "courseLeft", "courseLeftCount", "currentSemesterCourseCount"));
     })->name("dashboard");
     Route::delete("/logout", [Authentication::class, "logout"])->name("logout");
 
@@ -65,6 +65,8 @@ Route::middleware("auth")->group(function () {
     Route::get("/lecturer/create", [LecturerController::class, 'create']);
     Route::get("/report", [SemesterController::class, 'index']);
     Route::get('/export/{semester}', [SemesterController::class, 'export']);
+
+    Route::get("/semester/create", [SemesterController::class,'create']);
 });
 
 
@@ -79,7 +81,6 @@ Route::middleware("guest")->group(function () {
     });
     Route::post("login", [Authentication::class, 'login']);
 });
-
 
 
 

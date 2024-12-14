@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string("class");
             $table->string("studyprogram");
             $table->string("code")->unique();
-            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,7 @@
             <tr>
 
                 <td colspan="12">SEMESTER {{ $semester->is_odd ? 'GANJIL' : 'GENAP' }} TAHUN AKADEMIK
-                    {{ Date::parse($semester->begin)->year }}/{{ Date::parse($semester->end)->year }}
+                    {{ $semester->is_odd ? Date::parse($semester->begin)->year : Date::parse($semester->begin)->subYear()->year }}/{{ Date::parse($semester->end)->year }}
                 </td>
             </tr>
 
@@ -61,7 +61,7 @@
                         ->where('lecturer_id', $l->id)
                         ->where('semester_id', $semester->id);
                     $courses = $bads->get();
-                    $rows=$bads->count();
+                    $rows = $bads->count();
                     $count = 0;
                     foreach ($courses as $c) {
                         $count += $c->course->sks;

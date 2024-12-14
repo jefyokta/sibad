@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('otherjob_id')->nullable();
             $table->string("role");
             $table->timestamps();
-            $table->softDeletes();
         });
     }
     /**
