@@ -4,7 +4,8 @@
         <h1 class="text-gray-200 text-4xl font-semibold ">Beban Akademik</h1>
         <p class="text-gray-400">
             Semester {{ $semester->is_odd ? 'Ganjil' : 'Genap' }}
-            {{ Date::parse($semester->begin)->year }}/{{ Date::parse($semester->end)->year }}</p>
+            {{ $semester->is_odd ? Date::parse($semester->begin)->year : Date::parse($semester->begin)->subYear()->year }}/{{ Date::parse($semester->end)->year }}
+        </p>
     </div>
 
 
