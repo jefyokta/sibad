@@ -46,9 +46,12 @@
                 @foreach ($bads as $b)
                     @php
                         $sksTotal = 0;
-                        $theirbad = \App\Models\Bad::select('*')
-                            ->where('lecturer_id', $b->lecturer_id)
-                            ->get();
+                        $theirbad = \App\Models\Bad::select('*')->where('lecturer_id', $b->lecturer_id);
+                        if ($id = request()->query('s') ?? \App\Models\Semester::current()->id) {
+                            $theirbad = $theirbad->where('semester_id', $id);
+                        }
+
+                        $theirbad = $theirbad->get();
 
                         foreach ($theirbad as $t) {
                             $sksTotal += $t->course->sks;

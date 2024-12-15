@@ -25,7 +25,6 @@ class OfferingForm extends Component
         if ($co) {
             $course =  Course::where('id', $co);
             $taken = $this->getCurrentCourse($course, $this->c)->count() == 0;
-            // dd($taken);
             if (!$taken) {
                 $this->course = $co;
             } else {
@@ -34,9 +33,9 @@ class OfferingForm extends Component
         }
     }
 
-    private function getCurrentCourse(Builder $c = null, ?Semester $semester = null)
+    private function getCurrentCourse(Builder $c = null)
     {
-        $smt = $semester ?? Semester::current();
+        $smt = $this->c ?? Semester::current();
         $odd = $smt->is_odd ?? false;
         $courses = $c ?? Course::select("*");
 
@@ -63,14 +62,14 @@ class OfferingForm extends Component
         if (!$this->course || !$this->lecturerid) {
             return redirect("/course-offering")->with('error', "Mohon isi dengan benar");
         }
-        $isTaked =  Bad::select("*")->where("course_id", $this->course)->where('semester_id', Semester::current()->id)->count();
+        $isTaked =  Bad::select("*")->where("course_id", $this->course)->where('semester_id', $this->c?->id  ?? Semester::current()->id)->count();
         if ($isTaked > 0) {
             return redirect("/course-offering")->with('error', "Mata Kuliah kelas ini sudah diambil");
         }
         Bad::insert([
             "course_id" => $this->course,
             "lecturer_id" => $this->lecturerid,
-            "semester_id" => Semester::current()->id
+            "semester_id" => $this->c?->id  ?? Semester::current()->id
         ]);
 
         return redirect("/course-offering")->with("success", "berhasil menambahkan BAD");
