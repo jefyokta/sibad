@@ -17,8 +17,8 @@ class CourseAdd extends Component
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'code' => 'required|string|max:50|unique:courses',
-        'semester' => 'nullable|integer|min:0|max:8',
+        'code' => 'required|string|max:50|unique:courses,code',
+        'semester' => 'required|integer|min:0|max:8',
         'sks' => 'required|integer|min:1|max:24',
         'class' => 'required|string|max:50',
         'studyprogram' => 'required|string|max:255',
@@ -35,6 +35,7 @@ class CourseAdd extends Component
             Course::insert($v);
             return redirect('/courses')->with('success',"Berhasil Menambah matakuliah");
         } catch (\Throwable $th) {
+            dd($th );
             return redirect('/courses')->with('error',$th->getMessage());
 
         }

@@ -32,7 +32,7 @@ class CourseUpdate extends Component
             "course_id" => "required",
             'course_name' => 'required|string|max:255',
             'course_code' => 'required|string|max:50|unique:courses,code,' . $this->course_id,
-            'semester' => 'nullable|integer|min:0|max:8',
+            'semester' => 'integer|min:0|max:8',
             'sks' => 'required|integer|min:1|max:24',
             'class' => 'required|string|max:50',
             'studyprogram' => 'required|string|max:255',

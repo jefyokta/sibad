@@ -77,7 +77,7 @@
                                 {{ $c->code }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $c->semester }}
+                                {{ $c->semester === 0 ? "Pilihan" : $c->semester }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $c->sks }}

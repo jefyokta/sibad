@@ -18,13 +18,13 @@ class LecturerCreate extends Component
     public function save()
     {
         $v = (object) $this->validate([
-            'nip' => 'required|numeric|unique:lecturers',
+            'nip' => 'required|numeric|unique:lecturers,nip',
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:50',
             "otherjob_id" => "nullable|numeric"
 
         ]);
-        [$role,$gol]= explode("-",$v->role);
+        [$role, $gol] = explode("-", $v->role);
         Lecturers::insert([
             "nip" => $v->nip,
             'name' => $v->name,
