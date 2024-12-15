@@ -34,13 +34,13 @@
                     placeholder="Jabatan" required>
                     <option value="Lektor-III/c">Lektor III/c</option>
                     <option value="Lektor-III/d">Lektor III/d</option>
-                    <option value="Lektor/XII">Lektor/XII</option>
+                    <option value="Lektor-XII">Lektor/XII</option>
                     <option value="Lektor Kepala-IV/a">Lektor Kepala IV/a</option>
                     <option value="Lektor Kepala-IV/b">Lektor Kepala IV/b</option>
                     <option value="Asisten Ahli-III/a">Asisten Ahli III/a</option>
                     <option value="Asisten Ahli-III/b">Asisten Ahli III/b</option>
-                    <option value="Asisten Ahli/IX">Asisten Ahli/IX</option>
-                    <option value="Asisten Ahli/X">Asisten Ahli/X</option>
+                    <option value="Asisten Ahli-IX">Asisten Ahli/IX</option>
+                    <option value="Asisten Ahli-X">Asisten Ahli/X</option>
                     <option value="Profesor-IV/c">Profesor IV/c</option>
                     <option value="Profesor-IV/d">Profesor IV/d</option>
                     <option value="Profesor-IV/e">Profesor IV/e</option>
